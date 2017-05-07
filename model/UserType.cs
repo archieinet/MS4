@@ -1,9 +1,8 @@
 ﻿namespace model
 {
-    public enum        UserType
+    public enum UserType
     {
         Admin,
         User
-
     }
 }
