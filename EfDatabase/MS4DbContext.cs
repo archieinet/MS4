@@ -1,16 +1,16 @@
 ﻿using Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EfDatabase
 {
-    public class MS4DbContext: BaseContext<MS4DbContext>
+    public class MS4DbContext: DbContext
     {
+        public MS4DbContext(): 
+            base("MS4Db")
+        {
+
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<FileUpload> FileUploads { get; set; }
         public DbSet<FileDetail> FileDetails { get; set; }
