@@ -9,36 +9,19 @@ namespace EfDatabase.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            
+            AutomaticMigrationsEnabled = false;
         }
-        
 
         protected override void Seed(EfDatabase.MS4DbContext context)
         {
-            
-            //context.UserTypes.AddOrUpdate(
-            //    t => t.Code, new Models.UserType
-            //    {
-            //        Code = "A",
-            //        Description = "Admin"
-            //    },
-            //    new Models.UserType
-            //    {
-            //        Code = "U",
-            //        Description = "Users"
-
-            //    }
-            //    ); //user types
-          
-
             context.Users.AddOrUpdate(
-                u => u.UserName, 
+                u => u.UserName,
                     new Models.User
                     {
                         UserName = "archieinet",
                         Type = Models.TblGroupType.Admin,
                         Email = "archie@ctrwater.net",
+                        Password = "12345",
                         CreateDate = DateTime.Now,
                         Active = true,
                         UpdateDate = DateTime.Now
@@ -48,6 +31,7 @@ namespace EfDatabase.Migrations
                         UserName = "bo.li",
                         Type = Models.TblGroupType.Admin,
                         Email = "bo.li@ctrwater.net",
+                        Password = "8523",
                         CreateDate = DateTime.Now,
                         Active = true,
                         UpdateDate = DateTime.Now
@@ -56,11 +40,12 @@ namespace EfDatabase.Migrations
                         UserName = "WHusin",
                         Type = Models.TblGroupType.Agency,
                         Email = "William.Husin@ctrwater.net",
+                        Password = "8795",
                         CreateDate = DateTime.Now,
                         Active = true,
                         UpdateDate = DateTime.Now
                     }
                 ); //users
-       }
+        }
     }
 }
