@@ -56,8 +56,13 @@
     <Compile Include="Migrations\201705081455314_AddGrpType.Designer.cs">
       <DependentUpon>201705081455314_AddGrpType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705081512006_ValidateAcct.cs" />
+    <Compile Include="Migrations\201705081512006_ValidateAcct.Designer.cs">
+      <DependentUpon>201705081512006_ValidateAcct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DataStructure.cs" />
+    <Compile Include="Models\Profile.cs" />
     <Compile Include="MS4DbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -71,6 +76,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705081455314_AddGrpType.resx">
       <DependentUpon>201705081455314_AddGrpType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705081512006_ValidateAcct.resx">
+      <DependentUpon>201705081512006_ValidateAcct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

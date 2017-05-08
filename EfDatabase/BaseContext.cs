@@ -2,7 +2,7 @@
 
 namespace EfDatabase
 {
-    class BaseContext<T>: DbContext where T: DbContext
+   public class BaseContext<T>: DbContext where T: DbContext
     {
         static BaseContext()
         {
