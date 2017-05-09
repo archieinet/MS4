@@ -6,11 +6,7 @@ namespace EfDatabase
 {
     public class MS4DbContext: BaseContext<MS4DbContext>
     {
-        //public MS4DbContext(): 
-        //    base("MS4Db")
-        //{
-
-        //}
+       
         public DbSet<User> Users { get; set; }
         public DbSet<FileUpload> FileUploads { get; set; }
         public DbSet<FileDetail> FileDetails { get; set; }

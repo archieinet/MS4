@@ -1,6 +1,7 @@
 ﻿using EfDatabase;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
+using System.Diagnostics;
 
 namespace UnitTestProj
 {
@@ -19,14 +20,11 @@ namespace UnitTestProj
         [TestMethod]
         public void TestMethod1()
         {
-            Models.Profile op =  msdb.ValidateLogin(new User { UserName = "archieinet", Email = "archie@ctrwater.net", Password = "1234561" });
+            Models.Profile op =  msdb.ValidateLogin(new User {
+                UserName = "archieinet", Email = "archie@ctrwater.net", Password = "123456" });
+          
             Assert.AreEqual("NOTFOUND", op.KeyID);
-
-
-           
-
-
-
+            
         }
     }
 }
