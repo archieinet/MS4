@@ -28,9 +28,9 @@ namespace WebAPI.Controllers
                 Email = Email,
                 Password = Password
             };
-           string op =  db.ValidateLogin(u);
-        
-            return Ok(new { guid = p.KeyID });
+           Profile p =  db.ValidateLogin(u);
+
+            return Ok(new { guid = p.KeyID});
         }
     }
 }
