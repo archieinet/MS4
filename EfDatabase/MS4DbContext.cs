@@ -12,7 +12,7 @@ namespace EfDatabase
         public DbSet<FileUpload> FileUploads { get; set; }
         public DbSet<FileDetail> FileDetails { get; set; }
 
-
+        //---LOGIN
         public Profile ValidateLogin(User usr)
         {
             var e = string.Empty;
@@ -41,6 +41,12 @@ namespace EfDatabase
             return new Profile { KeyID = ident.Value.ToString() };
         }
 
+
+        //--FORGET PASSWORD
+        //--REGISTER
+        
+        
+        
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)
         //{
             

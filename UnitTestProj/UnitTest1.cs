@@ -21,7 +21,7 @@ namespace UnitTestProj
         public void TestMethod1()
         {
             Models.Profile op =  msdb.ValidateLogin(new User {
-                UserName = "archieinet", Email = "archie@ctrwater.net", Password = "123456" });
+                UserName = "archieinet", Email = "archie@ctrwater.net", Password = "1234561" });
           
             Assert.AreEqual("NOTFOUND", op.KeyID);
             
