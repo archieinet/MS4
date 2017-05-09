@@ -4,13 +4,13 @@ using System.Data.SqlClient;
 
 namespace EfDatabase
 {
-    public class MS4DbContext: DbContext
+    public class MS4DbContext: BaseContext<MS4DbContext>
     {
-        public MS4DbContext(): 
-            base("MS4Db")
-        {
+        //public MS4DbContext(): 
+        //    base("MS4Db")
+        //{
 
-        }
+        //}
         public DbSet<User> Users { get; set; }
         public DbSet<FileUpload> FileUploads { get; set; }
         public DbSet<FileDetail> FileDetails { get; set; }
@@ -20,21 +20,17 @@ namespace EfDatabase
         {
             var e = string.Empty;
             var u = string.Empty;
-            var ident = new SqlParameter
-            {
-                SqlDbType = System.Data.SqlDbType.VarChar,
-                ParameterName = "@ident",
-                Direction = System.Data.ParameterDirection.Output
-            };
+            var ident = new SqlParameter("@ident", System.Data.SqlDbType.VarChar, 200);
+            ident.Direction = System.Data.ParameterDirection.Output;
 
             u = (usr.UserName ?? "") == "" ? "" : usr.UserName;
             e = usr.Email.IndexOf('@') > -1 ? usr.Email :
                 (usr.UserName ?? "") == "" ? "" : usr.UserName;
 
             this.Database.ExecuteSqlCommand("usp_ValidateAcct @usr, @email, @pwd, @ident OUT",
-                new SqlParameter("usr", System.Data.SqlDbType.VarChar) { Value = u },
-                new SqlParameter("email", System.Data.SqlDbType.VarChar) { Value = e },
-                new SqlParameter("pwd", System.Data.SqlDbType.VarChar) { Value = usr.Password }, ident
+                new SqlParameter("@usr", System.Data.SqlDbType.VarChar, 100) { Value = u },
+                new SqlParameter("@email", System.Data.SqlDbType.VarChar, 50) { Value = e },
+                new SqlParameter("@pwd", System.Data.SqlDbType.VarChar, 50) { Value = usr.Password }, ident
                 );
 
             return new Profile { KeyID = ident.Value.ToString() };

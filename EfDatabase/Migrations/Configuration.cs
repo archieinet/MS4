@@ -9,7 +9,7 @@ namespace EfDatabase.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(EfDatabase.MS4DbContext context)
