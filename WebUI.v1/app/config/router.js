@@ -9,14 +9,14 @@
         $stateProvider
             .state('home', {
                 url: '/home',
-                template: '<h1>Welcome HOME</h1>',
+                templateUrl: 'app/views/main.html',
                 data: {
                     reqLogin: false
                 }
             }) //home
-            .state('login', {
-                url: '/login',
-                template: '<login-component></login-component>',
+            .state('dashboard', {
+                url: '/dashboard',
+                template: '<dashboard-component></dashboard-component>',
                 data: {
                     reqLogin: true
                 }
@@ -36,11 +36,15 @@
             if (reQ && $rootScope.Profile === undefined) {
                 $uibModal.open({
                     animation: true,
-                    template: '<login-component></login-component>',
-                    size:'lg'
-                });
+                    component: 'loginComponent',
+                    size:'sm'
+                }).result.then(function (resp) {
+                    console.log('submitted ' + resp);
+                    }, function (resp) {
+                        $state.go('home');
+                    });
 
-
+                
 
 
 
@@ -55,7 +59,7 @@
 
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            console.log(toState);
+            console.info('$stateChangeSucces....');
 
         });
 

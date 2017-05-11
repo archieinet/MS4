@@ -5,7 +5,9 @@
       "app/app.js",
       "app/config/router.js",
       "app/config/services.js",
-      "app/components/login.js"
+      "app/components/login.js",
+      "app/components/dashboard.js"
+
     ]
   }
 ]

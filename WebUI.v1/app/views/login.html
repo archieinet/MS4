@@ -1,26 +1,19 @@
-﻿<div class="modal-header">
-    <h3>MS4.ORG</h3>
+﻿<div class="modal-header" style="background-color:#4daff7;">
+     <img src="imgs/city-of-chicago-logo.png" class="img-responsive" />
 </div>
 <div class="modal-body">
-    <form class="form-inline">
+    <form ng-submit="login.ok();">
         <div class="form-group">
-            <label class="sr-only" for="exampleInputEmail3">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
         </div>
         <div class="form-group">
-            <label class="sr-only" for="exampleInputPassword3">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox"> Remember me
-            </label>
-        </div>
-        <button type="submit" class="btn btn-default">Sign in</button>
+        <button type="submit" class="btn btn-default">Submit</button>
+        <a class="btn btn-warning" ng-click="login.cancel();" >Cancel</a>
     </form>
-</div>
-<div class="modal-footer">
 
-</div>
-
+</div> 
     

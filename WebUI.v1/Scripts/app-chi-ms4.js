@@ -17,14 +17,14 @@ var app = angular.module('appMS4', [
         $stateProvider
             .state('home', {
                 url: '/home',
-                template: '<h1>Welcome HOME</h1>',
+                templateUrl: 'app/views/main.html',
                 data: {
                     reqLogin: false
                 }
             }) //home
-            .state('login', {
-                url: '/login',
-                template: '<login-component></login-component>',
+            .state('dashboard', {
+                url: '/dashboard',
+                template: '<dashboard-component></dashboard-component>',
                 data: {
                     reqLogin: true
                 }
@@ -44,11 +44,15 @@ var app = angular.module('appMS4', [
             if (reQ && $rootScope.Profile === undefined) {
                 $uibModal.open({
                     animation: true,
-                    template: '<login-component></login-component>',
-                    size:'lg'
-                });
+                    component: 'loginComponent',
+                    size:'sm'
+                }).result.then(function (resp) {
+                    console.log('submitted ' + resp);
+                    }, function (resp) {
+                        $state.go('home');
+                    });
 
-
+                
 
 
 
@@ -63,7 +67,7 @@ var app = angular.module('appMS4', [
 
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            console.log(toState);
+            console.info('$stateChangeSucces....');
 
         });
 
@@ -97,31 +101,50 @@ var app = angular.module('appMS4', [
 
     var controller = function ($rootScope) {
         var login = this;
-
-
-
-
+        
         login.$onInit = function () {
+            login.name = 'archie';
             console.info('login......' + JSON.stringify($rootScope.Profile));
         };
 
+        login.ok = function () {
+            login.close({ $value: 'submit' });
+        };//ok
 
-
-
+        login.cancel = function () {
+            login.dismiss({ $value: 'cancel' });
+        };// cancel
 
     }; //controller
-
-
-
-
-
-
 
     app.component('loginComponent', {
             templateUrl: 'app/views/login.html',
             controller: ['$rootScope', controller],
-            controllerAs: 'login'
-
+            controllerAs: 'login',
+            bindings: {
+                resolve: '<',
+                close: '&',
+                dismiss: '&'
+            }
         });
+
+})();
+
+(function () {
+
+
+    var dashCtrl = function ($rootScope) {
+        var dash = this;
+
+
+
+    }; //dashCtrl
+
+    app.component('dashboardComponent', {
+        templateUrl: 'app/views/dashboard.html',
+        controller: ['$rootScope', dashCtrl],
+        controllerAs: 'dash'
+
+    });
 
 })();

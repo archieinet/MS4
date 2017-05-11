@@ -65,8 +65,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\components\dashboard.js" />
     <Content Include="app\config\router.js" />
     <Content Include="app\config\services.js" />
+    <Content Include="app\views\dashboard.html" />
+    <Content Include="app\views\main.html" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="packages.config" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
