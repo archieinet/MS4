@@ -1,7 +1,18 @@
 ﻿(function () {
     'use strict';
 
-    var controller = function () {
+    var controller = function ($rootScope) {
+        var login = this;
+
+
+
+
+        login.$onInit = function () {
+            console.info('login......' + JSON.stringify($rootScope.Profile));
+        };
+
+
+
 
 
     }; //controller
@@ -12,9 +23,9 @@
 
 
 
-    app.component('login', {
-            templateUrl: './views/login.html',
-            controller: controller,
+    app.component('loginComponent', {
+            templateUrl: 'app/views/login.html',
+            controller: ['$rootScope', controller],
             controllerAs: 'login'
 
         });

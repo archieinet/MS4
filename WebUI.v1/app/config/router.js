@@ -1,12 +1,4 @@
-var app = angular.module('appMS4', [
-    'ui.router',
-    'ui.bootstrap'
-]);
-
-
-
-
-(function(){
+﻿(function(){
 
     'use strict';
 
@@ -80,48 +72,5 @@ var app = angular.module('appMS4', [
 
 
 
-
-})();
-(function(){
-    'use strict';
-
-    var services = function ($http, $q, CONST) {
-        //API
-
-    }; // services
-    app.service('services', ['$http', '$q', 'appConst', services]);
-
-})();
-(function () {
-    'use strict';
-
-    var controller = function ($rootScope) {
-        var login = this;
-
-
-
-
-        login.$onInit = function () {
-            console.info('login......' + JSON.stringify($rootScope.Profile));
-        };
-
-
-
-
-
-    }; //controller
-
-
-
-
-
-
-
-    app.component('loginComponent', {
-            templateUrl: 'app/views/login.html',
-            controller: ['$rootScope', controller],
-            controllerAs: 'login'
-
-        });
 
 })();

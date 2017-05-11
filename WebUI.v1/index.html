@@ -1,10 +1,11 @@
 ﻿<!DOCTYPE html>
-<html ng-app="app-chims">
+<html ng-app="appMS4">
 <head>
     <meta charset="utf-8" />
     <title>CHI-MS4.ORG</title>
 
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
+
 </head>
 <body style="background-color:#e3f2fd;">
     <div class="container-fluid">
@@ -16,8 +17,8 @@
                 </div>
             </div>
         </nav>
-        <div class="container" style="margin-top:60px;" ng-controller="appCtrl as vm">
-            <!--<ui-view></ui-view>--> {{vm.appName}}<br />{{vm.appDesc}}
+        <div class="container" style="margin-top:60px;">
+            <ui-view></ui-view> 
         </div>
     </div>
 
@@ -28,6 +29,8 @@
     <script src="Scripts/jquery-3.1.1.min.js"></script>
     <script src="Scripts/angular.min.js"></script>
     <script src="Scripts/angular-ui-router.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="Scripts/app-chi-ms4.js"></script>
 </body>
 </html>

@@ -3,6 +3,8 @@
     "outputFileName": "Scripts/app-chi-ms4.js",
     "inputFiles": [
       "app/app.js",
+      "app/config/router.js",
+      "app/config/services.js",
       "app/components/login.js"
     ]
   }
