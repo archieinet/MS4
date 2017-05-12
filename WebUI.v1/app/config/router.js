@@ -20,7 +20,7 @@
                 data: {
                     reqLogin: true
                 }
-            
+               
             })
 
             ;//$stateProvider

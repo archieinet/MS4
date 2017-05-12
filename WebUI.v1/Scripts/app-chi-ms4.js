@@ -28,7 +28,7 @@ var app = angular.module('appMS4', [
                 data: {
                     reqLogin: true
                 }
-            
+               
             })
 
             ;//$stateProvider
