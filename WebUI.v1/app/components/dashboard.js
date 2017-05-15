@@ -11,8 +11,8 @@
     app.component('dashboardComponent', {
         templateUrl: 'app/views/dashboard.html',
         controller: ['$rootScope', dashCtrl],
-        controllerAs: 'dash'
-
+        controllerAs: 'dash', 
+      
     });
 
 })();

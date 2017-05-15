@@ -24,10 +24,11 @@ var app = angular.module('appMS4', [
             }) //home
             .state('dashboard', {
                 url: '/dashboard',
+                //component: 'dashboardComponent',
                 template: '<dashboard-component></dashboard-component>',
                 data: {
                     reqLogin: true
-                }
+                } 
                
             })
 
@@ -40,26 +41,22 @@ var app = angular.module('appMS4', [
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             var reQ = toState.data.reqLogin;
             
-
+          
             if (reQ && $rootScope.Profile === undefined) {
                 $uibModal.open({
                     animation: true,
                     component: 'loginComponent',
-                    size:'sm'
+                    size:'md'
                 }).result.then(function (resp) {
                     console.log('submitted ' + resp);
                     }, function (resp) {
-                        $state.go('home');
+                        $state.go(fromState.name || 'home');
                     });
 
-                
-
-
-
-                //$rootScope.Profile = {
-                //    name: 'archie',
-                //    xkey: 'SKDJF-SDAKFIX-2342-SDFK-DFJSAK'
-                //};
+                $rootScope.Profile = {
+                    name: 'archie',
+                    xkey: 'SKDJF-SDAKFIX-2342-SDFK-DFJSAK'
+                };
             }
             
 
@@ -86,11 +83,45 @@ var app = angular.module('appMS4', [
 
 
 })();
-(function(){
+(function () {
     'use strict';
 
     var services = function ($http, $q, CONST) {
         //API
+        var GET = function (u) {
+            $http.get(CONST.API + u, {
+                'Developer': 'AP',
+                'Version': '1.0.0'
+            })
+                .then(succResp)
+                .catch(erroResp);
+        };
+
+        var POST = function (u, d) {
+            $http.post(CONST.API + u, d)
+                .then(succResp)
+                .catch(erroResp);
+        };
+
+        var PUT = function (u, d) {
+            $http.post(CONST.API + u, d)
+                .then(succResp)
+                .catch(erroResp);
+        };
+
+        function succResp(resp) { return resp.data;};
+        function erroResp(resp) { return $q.reject('ERROR status: ' + resp.status); };
+
+        
+
+        return {
+            fetch: GET,
+            add: POST,
+            update: PUT
+        };
+
+
+
 
     }; // services
     app.service('services', ['$http', '$q', 'appConst', services]);
@@ -143,8 +174,8 @@ var app = angular.module('appMS4', [
     app.component('dashboardComponent', {
         templateUrl: 'app/views/dashboard.html',
         controller: ['$rootScope', dashCtrl],
-        controllerAs: 'dash'
-
+        controllerAs: 'dash', 
+      
     });
 
 })();
