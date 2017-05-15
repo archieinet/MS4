@@ -53,10 +53,10 @@ var app = angular.module('appMS4', [
                         $state.go(fromState.name || 'home');
                     });
 
-                $rootScope.Profile = {
-                    name: 'archie',
-                    xkey: 'SKDJF-SDAKFIX-2342-SDFK-DFJSAK'
-                };
+                //$rootScope.Profile = {
+                //    name: 'archie',
+                //    xkey: 'SKDJF-SDAKFIX-2342-SDFK-DFJSAK'
+                //};
             }
             
 
