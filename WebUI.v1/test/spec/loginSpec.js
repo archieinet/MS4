@@ -14,26 +14,24 @@
     });
 
 
-    beforeEach(inject(($componentController, $rootScope) => {
-        $componentConstructor = $componentController;
+    beforeEach(inject((_$component_, $rootScope) => {
+        $componentConstructor = _$component_;
         scope = $rootScope.$new();
 
     }));
 
 
-    it("expect testFunc to return 10", () => {
+    
+
+
+    it("EXPECT testFunc to return 10", () => {
         let compo = $componentConstructor('loginComponent', { $scope: scope });
         expect(compo.testFunc()).toBe(10);
         //pending('to be continue....... ');
       
     }); //--should be of type login
 
-    //it("2nd test, expect testFunc to return 12", () => {
-    //    let compo = $componentConstructor('loginComponent', { $scope: scope });
-    //    expect(compo.testFunc()).toEqual(12);
-       
-
-    //}); //--should be of type login
+   
 
 });
  

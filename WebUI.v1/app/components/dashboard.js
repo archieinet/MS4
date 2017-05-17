@@ -5,6 +5,12 @@
         var dash = this;
 
 
+        
+
+
+        dash.profile = JSON.stringify($rootScope.Profile);
+
+       
 
     }; //dashCtrl
 

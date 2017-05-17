@@ -5,6 +5,7 @@
       "app/app.js",
       "app/config/router.js",
       "app/config/services.js",
+      "app/directives/fileModel.js",
       "app/components/login.js",
       "app/components/dashboard.js"
 

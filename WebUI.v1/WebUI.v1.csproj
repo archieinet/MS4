@@ -68,6 +68,7 @@
     <Content Include="app\components\dashboard.js" />
     <Content Include="app\config\router.js" />
     <Content Include="app\config\services.js" />
+    <Content Include="app\directives\fileModel.js" />
     <Content Include="app\views\dashboard.html" />
     <Content Include="app\views\main.html" />
     <Content Include="Content\bootstrap.css" />
