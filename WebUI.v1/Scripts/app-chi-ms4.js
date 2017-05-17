@@ -147,7 +147,7 @@ var app = angular.module('appMS4', [
         };// cancel
 
 
-
+        //-----------test
         login.testFunc = function () {
             return 10;
         };

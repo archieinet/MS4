@@ -1,24 +1,39 @@
 ﻿describe("login objects", () => {
 
-    let $controllerConstructor,
+    let $componentConstructor,
         scope;
 
+    beforeEach(angular.mock.module('appMS4'));
 
 
 
-    beforEach(module('app'));
+    describe('INSIDE login object', () => {
+        it('just to say', () => {
+            expect(true).toBeTruthy('Yes, it\'s true');
+        });
+    });
 
-    beforeEach(inject(($controller, $rootScope) => {
-        $controllerConstructor = $controller;    
+
+    beforeEach(inject(($componentController, $rootScope) => {
+        $componentConstructor = $componentController;
         scope = $rootScope.$new();
-        
-    })); 
 
-    it("should be of type login", () => {
-        
-        expect(scope.testFunc()).toBe(10);
-        
+    }));
 
+
+    it("expect testFunc to return 10", () => {
+        let compo = $componentConstructor('loginComponent', { $scope: scope });
+        expect(compo.testFunc()).toBe(10);
+        //pending('to be continue....... ');
+      
     }); //--should be of type login
 
+    //it("2nd test, expect testFunc to return 12", () => {
+    //    let compo = $componentConstructor('loginComponent', { $scope: scope });
+    //    expect(compo.testFunc()).toEqual(12);
+       
+
+    //}); //--should be of type login
+
 });
+ 
