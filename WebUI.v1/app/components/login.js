@@ -17,6 +17,11 @@
             login.dismiss({ $value: 'cancel' });
         };// cancel
 
+
+
+        login.testFunc = function () {
+            return 10;
+        };
     }; //controller
 
     app.component('loginComponent', {
