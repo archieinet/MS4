@@ -199,6 +199,9 @@ var app = angular.module('appMS4', [
 (function () {
 
 
+
+   
+
     var dashCtrl = function ($rootScope) {
         var dash = this;
 
@@ -212,9 +215,14 @@ var app = angular.module('appMS4', [
 
     }; //dashCtrl
 
+
+
+    dashCtrl.$inject = ['$rootScope'];
+
     app.component('dashboardComponent', {
         templateUrl: 'app/views/dashboard.html',
-        controller: ['$rootScope', dashCtrl],
+        //controller: ['$rootScope', dashCtrl],
+        controller: dashCtrl,
         controllerAs: 'dash', 
       
     });

@@ -1,6 +1,9 @@
 ﻿(function () {
 
 
+
+   
+
     var dashCtrl = function ($rootScope) {
         var dash = this;
 
@@ -14,9 +17,14 @@
 
     }; //dashCtrl
 
+
+
+    dashCtrl.$inject = ['$rootScope'];
+
     app.component('dashboardComponent', {
         templateUrl: 'app/views/dashboard.html',
-        controller: ['$rootScope', dashCtrl],
+        //controller: ['$rootScope', dashCtrl],
+        controller: dashCtrl,
         controllerAs: 'dash', 
       
     });
