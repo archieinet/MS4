@@ -7,11 +7,11 @@
 
 
 
-    describe('INSIDE login object', () => {
-        it('just to say', () => {
-            expect(true).toBeTruthy('Yes, it\'s true');
-        });
-    });
+    //describe('INSIDE login object', () => {
+    //    it('just to say', () => {
+    //        expect(true).toBeTruthy('Yes, it\'s true');
+    //    });
+    //});
 
 
     beforeEach(inject((_$component_, $rootScope) => {
