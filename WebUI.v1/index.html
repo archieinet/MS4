@@ -34,14 +34,7 @@
                             <li><a ui-sref="home">Home</a></li>
                             <li><a ui-sref="dashboard">dashboard</a></li>
                             <li>
-                                <input type="file" id="selFile" file-model accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" multiple style="display:none" />
-                                <a 
-                                   onclick="document.getElementById('selFile').click();"
-                                   popover-title="Attach files"
-                                   popover-trigger="'mouseenter'"
-                                   uib-popover="Allowed file types are pdf, jpg, jpeg, png, doc, docx and file size must be less than 5MB.">
-                                    Upload <span class="badge" ng-if="files.length>0">{{files.length}}</span>
-                                </a>
+                               
                                 <!--<p style="margin-left:5px;">
                                     <small class="text-muted">
                                         Allowed file types are pdf, jpg, jpeg, png, doc, docx and file size must be less than 5MB.

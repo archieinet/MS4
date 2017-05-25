@@ -1,4 +1,38 @@
 ﻿<h3>dashboard</h3>
-<p>{{dash.profile | json}}</p>
-<input type="file" 
-       file-model />
+
+ <section>
+    <input type="file" id="selFile" file-model accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" multiple style="display:none" />
+    <a onclick="document.getElementById('selFile').click();"
+       class="btn btn-info"
+       popover-title="Attach files"
+       popover-trigger="'mouseenter'"
+       uib-popover="Allowed file types are pdf, jpg, jpeg, png, doc, docx and file size must be less than 5MB.">
+        Get Files 
+    </a>
+</section>     
+<br />
+<div class="panel panel-default" ng-if="files.length">
+    <div class="panel-heading">{{files.length>1?'Files':'File'}} - <span class="badge" ng-if="files.length">{{files.length}}</span></div>
+    <div class="panel-body">
+        <ol class="list-unstyled">
+            <li ng-repeat="file in files track by $index">
+                <a href="#" ng-click="$event.preventDefault();dash.removeAttach($index);">
+                    <span class="glyphicon glyphicon-remove-circle text-danger"></span>
+                </a> {{file.name}}
+            </li>
+        </ol>
+    </div>
+    <div class="panel-footer">
+        <button class="btn btn-success">
+            Upload attachment
+        </button>
+
+    </div>
+</div>
+
+ 
+
+ 
+
+
+
