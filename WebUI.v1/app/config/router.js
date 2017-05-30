@@ -19,7 +19,7 @@
                 //component: 'dashboardComponent',
                 template: '<dashboard-component></dashboard-component>',
                 data: {
-                    reqLogin: true
+                    reqLogin: false
                 } 
                
             })

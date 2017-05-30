@@ -5,7 +5,9 @@
     app.directive('fileModel', function () {
 
         return {
-            scope: true,
+            scope: {
+                selectedFile: '='
+            },
             link: function (scope, el, attrs) {
                 el.on('change', function (event) {
                     var files = event.target.files;

@@ -27,7 +27,7 @@ var app = angular.module('appMS4', [
                 //component: 'dashboardComponent',
                 template: '<dashboard-component></dashboard-component>',
                 data: {
-                    reqLogin: true
+                    reqLogin: false
                 } 
                
             })
@@ -134,7 +134,9 @@ var app = angular.module('appMS4', [
     app.directive('fileModel', function () {
 
         return {
-            scope: true,
+            scope: {
+                selectedFile: '='
+            },
             link: function (scope, el, attrs) {
                 el.on('change', function (event) {
                     var files = event.target.files;
@@ -189,14 +191,14 @@ var app = angular.module('appMS4', [
 })();
 
 (function () {
+    'use strict';
 
-
-
-   
-
-    var dashCtrl = function ($rootScope, $scope) {
+    var dashCtrl = function ($rootScope, $scope, $timeout) {
         var dash = this;
         $scope.files = [];
+
+        dash.inProc = false;
+                
 
         $scope.$on('selectedFile', function (event, args) {
             $scope.$apply(function () {
@@ -211,16 +213,28 @@ var app = angular.module('appMS4', [
 
 
         dash.uploadFiles = function () {
+            dash.inProc = true;
             if ($scope.files.length === 0) {
                 alert('No files to be upload');
                 return false;
             }
 
             //----upload here
-
+            $timeout(function () {
+                dash.inProc = false;
+            }, 2000);
 
         }; //dash.uploadFiles();
 
+
+        dash.removeAll = function () {
+            if ($scope.files.length===0)  
+                return false;
+
+            for (var i = 0; i < $scope.files.length; i++) 
+                $scope.files.splice(i, 1);
+            
+        };
 
 
         dash.profile = JSON.stringify($rootScope.Profile);
@@ -229,9 +243,9 @@ var app = angular.module('appMS4', [
 
     }; //dashCtrl
 
+    
 
-
-    dashCtrl.$inject = ['$rootScope', '$scope'];
+    dashCtrl.$inject = ['$rootScope', '$scope', '$timeout'];
 
     app.component('dashboardComponent', {
         templateUrl: 'app/views/dashboard.html',
@@ -239,5 +253,39 @@ var app = angular.module('appMS4', [
         controllerAs: 'dash', 
       
     });
+
+})();
+(function () {
+    'use strict';
+
+    var controller = function ($http, $timeout) {
+        var df = this;
+        df.files = [];
+
+        df.$onInit = function () {
+            $timeout(function () {
+                console.info('.....timeout...');
+                $http.get('Temp_Data/ds1.json')
+                    .then(function (data) {
+                        df.files = data.data;
+                        return true;
+                    });
+            }, 5000);
+        };
+
+    };
+       
+
+    controller.$inject = ['$http', '$timeout'];
+
+    app.component('displayFilesComponent', {
+        templateUrl: 'app/views/display-files.html',
+        controller: controller,
+        controllerAs: 'df',
+        transclude: true
+
+    });
+
+
 
 })();

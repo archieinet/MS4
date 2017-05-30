@@ -1,42 +1,9 @@
-﻿<h3>dashboard</h3>
-
-<div class="row">
-    <div class="col-lg-9">
-        <table class="table table-responsive">
-            <thead>
-                <tr>
-                    <td>File</td>
-                    <td>Date</td>
-                    <td>Whom</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                </tr>
-            </tbody>
-
-        </table>
+﻿<div class="row">
+    <div class="col-lg-8">
+        <display-files-component />
 
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
 
         <form ng-submit="dash.uploadFiles();">
             <fieldset>
@@ -61,10 +28,17 @@
                             </li>
                         </ol>
                     </div>
-                    <div class="panel-footer" ng-if="files.length">
-                        <button class="btn btn-success" type="submit">
+                    <div class="panel-footer" ><!--ng-if="files.length"-->
+                        <button class="btn btn-success" type="submit"
+                           ng-disabled="dash.inProc">
+                            <span ng-if="dash.inProc" 
+                                  class="glyphicon glyphicon-refresh spin"></span> 
                             Submit
                         </button>
+                        <a class="btn btn-danger"
+                           ng-click="$event.preventDefault();dash.removeAll();">
+                            Remove All
+                        </a>
 
                     </div>
                 </div>
