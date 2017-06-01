@@ -231,8 +231,7 @@ var app = angular.module('appMS4', [
             if ($scope.files.length===0)  
                 return false;
 
-            for (var i = 0; i < $scope.files.length; i++) 
-                $scope.files.splice(i, 1);
+            $scope.files = [];
             
         };
 
