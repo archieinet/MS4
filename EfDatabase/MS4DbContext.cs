@@ -38,7 +38,7 @@ namespace EfDatabase
             }
 
 
-            return new Profile { KeyID = ident.Value.ToString() };
+            return new Profile() { KeyID = ident.Value.ToString() };
         }
 
 

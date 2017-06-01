@@ -17,6 +17,8 @@ namespace Models
         public DateTime UpdateDate { get; set; }
         public DateTime CreateDate { get; set; }
 
+        
+
     }
 
  

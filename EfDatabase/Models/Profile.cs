@@ -1,6 +1,6 @@
 ﻿namespace Models
 {
-    public class Profile : User
+    public sealed class Profile : User
     {
         public string KeyID { get; set; }
 

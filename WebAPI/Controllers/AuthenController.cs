@@ -15,22 +15,31 @@ namespace WebAPI.Controllers
         public AuthenController()
         {
             db = new MS4DbContext();
-            
         }
 
 
         [HttpGet]
         public IHttpActionResult Login(string UserName, string Email, string Password)
         {
-            User u = new User
-            {
-                UserName = UserName,
-                Email = Email,
-                Password = Password
-            };
-           Profile p =  db.ValidateLogin(u);
 
-            return Ok(new { guid = p.KeyID});
+            Profile p = new Profile();
+
+            try
+            {
+                User u = new User
+                {
+                    UserName = UserName,
+                    Email = Email,
+                    Password = Password
+                };
+                p = db.ValidateLogin(u);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(new Exception(ex.Message));
+            }
+
+            return Ok(p.KeyID);
         }
     }
 }
