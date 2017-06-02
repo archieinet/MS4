@@ -19,7 +19,7 @@
                 //component: 'dashboardComponent',
                 template: '<dashboard-component></dashboard-component>',
                 data: {
-                    reqLogin: false
+                    reqLogin: true
                 } 
                
             })
@@ -45,10 +45,10 @@
                         $state.go(fromState.name || 'home');
                     });
 
-                $rootScope.Profile = {
-                    name: 'archie',
-                    xkey: 'SKDJF-SDAKFIX-2342-SDFK-DFJSAK'
-                };
+                //$rootScope.Profile = {
+                //    name: 'archie',
+                //    xkey: 'SKDJF-SDAKFIX-2342-SDFK-DFJSAK'
+                //};
             }
             
 

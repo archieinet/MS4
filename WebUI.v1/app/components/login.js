@@ -1,15 +1,23 @@
 ﻿(function () {
     'use strict';
 
-    var controller = function ($rootScope) {
+
+
+    var controller = function (srv) {
         var login = this;
         
         login.$onInit = function () {
             login.name = 'archie';
-            console.info('login......' + JSON.stringify($rootScope.Profile));
+           // console.info('login......' + JSON.stringify($rootScope.Profile));
         };
 
         login.ok = function () {
+            srv.fetch('/api/authen/', {
+                UserName: login.usr,
+                Email: login.usr,
+                Password: login.pwd
+            });
+
             login.close({ $value: 'submit' });
         };//ok
 
@@ -24,9 +32,12 @@
         };
     }; //controller
 
+
+    controller.$inject = ['services']
+
     app.component('loginComponent', {
             templateUrl: 'app/views/login.html',
-            controller: ['$rootScope', controller],
+            controller: controller ,
             controllerAs: 'login',
             bindings: {
                 resolve: '<',

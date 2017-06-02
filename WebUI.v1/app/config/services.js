@@ -3,8 +3,9 @@
 
     var services = function ($http, $q, CONST) {
         //API
-        var GET = function (u) {
-            $http.get(CONST.API + u, {
+        var GET = function (url, u) {
+            $http.get(CONST.API + url, {
+                params: u,
                 'Developer': 'AP',
                 'Version': '1.0.0'
             })
@@ -24,8 +25,13 @@
                 .catch(erroResp);
         };
 
-        function succResp(resp) { return resp.data;};
-        function erroResp(resp) { return $q.reject('ERROR status: ' + resp.status); };
+        function succResp(resp) {
+            return resp.data;
+        };
+        function erroResp(resp) {
+            return $q.reject('ERROR status: ' +
+                resp.status);
+        };
 
         
 
@@ -39,6 +45,9 @@
 
 
     }; // services
-    app.service('services', ['$http', '$q', 'appConst', services]);
+
+    services.$inject = ['$http', '$q', 'appConst'];
+
+    app.service('services', services);
 
 })();

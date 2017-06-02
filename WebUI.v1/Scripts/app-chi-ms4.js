@@ -27,7 +27,7 @@ var app = angular.module('appMS4', [
                 //component: 'dashboardComponent',
                 template: '<dashboard-component></dashboard-component>',
                 data: {
-                    reqLogin: false
+                    reqLogin: true
                 } 
                
             })
@@ -53,10 +53,10 @@ var app = angular.module('appMS4', [
                         $state.go(fromState.name || 'home');
                     });
 
-                $rootScope.Profile = {
-                    name: 'archie',
-                    xkey: 'SKDJF-SDAKFIX-2342-SDFK-DFJSAK'
-                };
+                //$rootScope.Profile = {
+                //    name: 'archie',
+                //    xkey: 'SKDJF-SDAKFIX-2342-SDFK-DFJSAK'
+                //};
             }
             
 
@@ -88,8 +88,9 @@ var app = angular.module('appMS4', [
 
     var services = function ($http, $q, CONST) {
         //API
-        var GET = function (u) {
-            $http.get(CONST.API + u, {
+        var GET = function (url, u) {
+            $http.get(CONST.API + url, {
+                params: u,
                 'Developer': 'AP',
                 'Version': '1.0.0'
             })
@@ -109,8 +110,13 @@ var app = angular.module('appMS4', [
                 .catch(erroResp);
         };
 
-        function succResp(resp) { return resp.data;};
-        function erroResp(resp) { return $q.reject('ERROR status: ' + resp.status); };
+        function succResp(resp) {
+            return resp.data;
+        };
+        function erroResp(resp) {
+            return $q.reject('ERROR status: ' +
+                resp.status);
+        };
 
         
 
@@ -124,7 +130,10 @@ var app = angular.module('appMS4', [
 
 
     }; // services
-    app.service('services', ['$http', '$q', 'appConst', services]);
+
+    services.$inject = ['$http', '$q', 'appConst'];
+
+    app.service('services', services);
 
 })();
 (function () {
@@ -154,15 +163,23 @@ var app = angular.module('appMS4', [
 (function () {
     'use strict';
 
-    var controller = function ($rootScope) {
+
+
+    var controller = function (srv) {
         var login = this;
         
         login.$onInit = function () {
             login.name = 'archie';
-            console.info('login......' + JSON.stringify($rootScope.Profile));
+           // console.info('login......' + JSON.stringify($rootScope.Profile));
         };
 
         login.ok = function () {
+            srv.fetch('/api/authen/', {
+                UserName: login.usr,
+                Email: login.usr,
+                Password: login.pwd
+            });
+
             login.close({ $value: 'submit' });
         };//ok
 
@@ -177,9 +194,12 @@ var app = angular.module('appMS4', [
         };
     }; //controller
 
+
+    controller.$inject = ['services']
+
     app.component('loginComponent', {
             templateUrl: 'app/views/login.html',
-            controller: ['$rootScope', controller],
+            controller: controller ,
             controllerAs: 'login',
             bindings: {
                 resolve: '<',

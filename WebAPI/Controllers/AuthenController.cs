@@ -1,14 +1,12 @@
 ﻿using EfDatabase;
 using Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace WebAPI.Controllers
 {
+    [EnableCors("http://localhost:63360",null,"GET,POST")]
     public class AuthenController : ApiController
     {
         readonly MS4DbContext db;
@@ -39,7 +37,10 @@ namespace WebAPI.Controllers
                 return InternalServerError(new Exception(ex.Message));
             }
 
-            return Ok(p.KeyID);
+            if (p.KeyID=="NOTFOUND")
+                return NotFound();
+
+            return Ok();
         }
     }
 }
