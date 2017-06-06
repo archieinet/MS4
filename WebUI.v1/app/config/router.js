@@ -20,8 +20,13 @@
                 template: '<dashboard-component></dashboard-component>',
                 data: {
                     reqLogin: true
-                } 
-               
+                },
+                resolve: {
+                    profile: function () {
+                        console.log('profile recorded');
+                        return true;
+                    }
+                }
             })
 
             ;//$stateProvider

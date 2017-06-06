@@ -24,13 +24,12 @@ namespace WebAPI.Controllers
 
             try
             {
-                User u = new User
+                p = db.ValidateLogin(new User
                 {
                     UserName = UserName,
                     Email = Email,
                     Password = Password
-                };
-                p = db.ValidateLogin(u);
+                });
             }
             catch (Exception ex)
             {
@@ -40,7 +39,7 @@ namespace WebAPI.Controllers
             if (p.KeyID=="NOTFOUND")
                 return NotFound();
 
-            return Ok();
+            return Ok(p.KeyID);
         }
     }
 }

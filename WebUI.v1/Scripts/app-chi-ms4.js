@@ -28,8 +28,13 @@ var app = angular.module('appMS4', [
                 template: '<dashboard-component></dashboard-component>',
                 data: {
                     reqLogin: true
-                } 
-               
+                },
+                resolve: {
+                    profile: function () {
+                        console.log('profile recorded');
+                        return true;
+                    }
+                }
             })
 
             ;//$stateProvider
@@ -88,14 +93,32 @@ var app = angular.module('appMS4', [
 
     var services = function ($http, $q, CONST) {
         //API
+        
+
         var GET = function (url, u) {
+            //var d = $q.defer();
+            //$http.get(CONST.API + url, {
+            //    params: u,
+            //    'Developer': 'AP',
+            //    'Version': '1.0.0'
+            //})
+            //    .then(function (data, status, headers, config) {
+            //        return d.resolve(data);
+            //    })
+            //    .catch(function (data, status, headers, config) {
+            //        return d.reject('ERROR: ' + data.statusText);
+            //    });
+
+            //d.promise;
+
+
             $http.get(CONST.API + url, {
                 params: u,
                 'Developer': 'AP',
                 'Version': '1.0.0'
-            })
-                .then(succResp)
-                .catch(erroResp);
+            });
+
+
         };
 
         var POST = function (u, d) {
@@ -108,14 +131,6 @@ var app = angular.module('appMS4', [
             $http.post(CONST.API + u, d)
                 .then(succResp)
                 .catch(erroResp);
-        };
-
-        function succResp(resp) {
-            return resp.data;
-        };
-        function erroResp(resp) {
-            return $q.reject('ERROR status: ' +
-                resp.status);
         };
 
         
@@ -174,7 +189,7 @@ var app = angular.module('appMS4', [
         };
 
         login.ok = function () {
-            srv.fetch('/api/authen/', {
+            var x = srv.fetch('/api/authen/', {
                 UserName: login.usr,
                 Email: login.usr,
                 Password: login.pwd

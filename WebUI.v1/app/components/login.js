@@ -12,7 +12,7 @@
         };
 
         login.ok = function () {
-            srv.fetch('/api/authen/', {
+            var x = srv.fetch('/api/authen/', {
                 UserName: login.usr,
                 Email: login.usr,
                 Password: login.pwd
