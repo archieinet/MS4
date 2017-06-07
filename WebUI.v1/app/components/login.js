@@ -1,8 +1,6 @@
 ﻿(function () {
     'use strict';
 
-
-
     var controller = function (srv) {
         var login = this;
         
@@ -12,11 +10,14 @@
         };
 
         login.ok = function () {
-            var x = srv.fetch('/api/authen/', {
+            srv.fetch('/api/authen/', {
                 UserName: login.usr,
                 Email: login.usr,
                 Password: login.pwd
-            });
+            }).then(function (data) {
+                console.log(data);
+                return true;
+                });
 
             login.close({ $value: 'submit' });
         };//ok
@@ -36,14 +37,14 @@
     controller.$inject = ['services']
 
     app.component('loginComponent', {
-            templateUrl: 'app/views/login.html',
-            controller: controller ,
-            controllerAs: 'login',
-            bindings: {
-                resolve: '<',
-                close: '&',
-                dismiss: '&'
-            }
-        });
+        templateUrl: 'app/views/login.html',
+        controller: controller,
+        controllerAs: 'login',
+        bindings: {
+            resolve: '<',
+            close: '&',
+            dismiss: '&'
+        }
+    });
 
 })();

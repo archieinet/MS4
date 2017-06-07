@@ -92,33 +92,23 @@ var app = angular.module('appMS4', [
     'use strict';
 
     var services = function ($http, $q, CONST) {
-        //API
-        
-
-        var GET = function (url, u) {
-            //var d = $q.defer();
-            //$http.get(CONST.API + url, {
-            //    params: u,
-            //    'Developer': 'AP',
-            //    'Version': '1.0.0'
-            //})
-            //    .then(function (data, status, headers, config) {
-            //        return d.resolve(data);
-            //    })
-            //    .catch(function (data, status, headers, config) {
-            //        return d.reject('ERROR: ' + data.statusText);
-            //    });
-
-            //d.promise;
-
-
+    
+        var fetch = function (url, u) {
+            var d = $q.defer();
             $http.get(CONST.API + url, {
                 params: u,
                 'Developer': 'AP',
-                'Version': '1.0.0'
-            });
+                'Version': '1.0.0',
+                'Content-Type': 'application/json'
+            })
+                .then(function (data, status, headers, config) {
+                    d.resolve(data);
+                })
+                .catch(function (data, status, headers, config) {
+                    d.reject('ERROR: ' + data.statusText);
+                });
 
-
+            d.promise;
         };
 
         var POST = function (u, d) {
@@ -126,24 +116,20 @@ var app = angular.module('appMS4', [
                 .then(succResp)
                 .catch(erroResp);
         };
-
         var PUT = function (u, d) {
             $http.post(CONST.API + u, d)
                 .then(succResp)
                 .catch(erroResp);
         };
 
-        
-
         return {
-            fetch: GET,
+            fetch: fetch,
             add: POST,
             update: PUT
         };
 
 
-
-
+        
     }; // services
 
     services.$inject = ['$http', '$q', 'appConst'];
@@ -178,8 +164,6 @@ var app = angular.module('appMS4', [
 (function () {
     'use strict';
 
-
-
     var controller = function (srv) {
         var login = this;
         
@@ -189,11 +173,14 @@ var app = angular.module('appMS4', [
         };
 
         login.ok = function () {
-            var x = srv.fetch('/api/authen/', {
+            srv.fetch('/api/authen/', {
                 UserName: login.usr,
                 Email: login.usr,
                 Password: login.pwd
-            });
+            }).then(function (data) {
+                console.log(data);
+                return true;
+                });
 
             login.close({ $value: 'submit' });
         };//ok
@@ -213,15 +200,15 @@ var app = angular.module('appMS4', [
     controller.$inject = ['services']
 
     app.component('loginComponent', {
-            templateUrl: 'app/views/login.html',
-            controller: controller ,
-            controllerAs: 'login',
-            bindings: {
-                resolve: '<',
-                close: '&',
-                dismiss: '&'
-            }
-        });
+        templateUrl: 'app/views/login.html',
+        controller: controller,
+        controllerAs: 'login',
+        bindings: {
+            resolve: '<',
+            close: '&',
+            dismiss: '&'
+        }
+    });
 
 })();
 
