@@ -17,15 +17,23 @@
             .state('dashboard', {
                 url: '/dashboard',
                 //component: 'dashboardComponent',
-                template: '<dashboard-component></dashboard-component>',
+                template: '<dashboard-component auth="$resolve.xKey"></dashboard-component>',
                 data: {
                     reqLogin: true
                 },
                 resolve: {
-                    profile: function () {
-                        console.log('profile recorded');
-                        return true;
-                    }
+                    xKey: ['$uibModal', function ($uibModal) {
+                        return $uibModal.open({
+                            animation: true,
+                            component: 'loginComponent',
+                            size: 'md',
+                        }).result.then(function userAuthenticated(resp) {
+                            if (sessionStorage.profile !== undefined)
+                                sessionStorage.removeItem('profile');
+                            sessionStorage.setItem('profile', JSON.stringify(resp));
+                            return resp;
+                        });
+                    }]
                 }
             })
 

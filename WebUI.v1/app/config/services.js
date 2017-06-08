@@ -14,7 +14,7 @@
             return $uibModal.open({
                 animation: true,
                 component: 'loginComponent',
-                size: 'md'
+                size: 'md',
             }).result.then(userAuthenticated);
         };
 

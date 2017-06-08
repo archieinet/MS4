@@ -31,6 +31,7 @@
                         }
                     });
                 }).catch(function (resp) {
+                    toastr.error(resp.statusText, 'ERROR');
                     return resp.statusText;
                 });
         };//ok

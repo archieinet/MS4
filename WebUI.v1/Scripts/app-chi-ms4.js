@@ -25,15 +25,23 @@ var app = angular.module('appMS4', [
             .state('dashboard', {
                 url: '/dashboard',
                 //component: 'dashboardComponent',
-                template: '<dashboard-component></dashboard-component>',
+                template: '<dashboard-component auth="$resolve.xKey"></dashboard-component>',
                 data: {
                     reqLogin: true
                 },
                 resolve: {
-                    profile: function () {
-                        console.log('profile recorded');
-                        return true;
-                    }
+                    xKey: ['$uibModal', function ($uibModal) {
+                        return $uibModal.open({
+                            animation: true,
+                            component: 'loginComponent',
+                            size: 'md',
+                        }).result.then(function userAuthenticated(resp) {
+                            if (sessionStorage.profile !== undefined)
+                                sessionStorage.removeItem('profile');
+                            sessionStorage.setItem('profile', JSON.stringify(resp));
+                            return resp;
+                        });
+                    }]
                 }
             })
 
@@ -99,7 +107,7 @@ var app = angular.module('appMS4', [
             return $uibModal.open({
                 animation: true,
                 component: 'loginComponent',
-                size: 'md'
+                size: 'md',
             }).result.then(userAuthenticated);
         };
 
@@ -167,6 +175,7 @@ var app = angular.module('appMS4', [
                         }
                     });
                 }).catch(function (resp) {
+                    toastr.error(resp.statusText, 'ERROR');
                     return resp.statusText;
                 });
         };//ok
