@@ -1,7 +1,10 @@
 ﻿(function () {
     'use strict';
 
-    var controller = function (srv) {
+   
+
+
+    var controller = function ($http, CONST) {
         var login = this;
         
         login.$onInit = function () {
@@ -10,16 +13,22 @@
         };
 
         login.ok = function () {
-            srv.fetch('/api/authen/', {
-                UserName: login.usr,
-                Email: login.usr,
-                Password: login.pwd
-            }).then(function (data) {
-                console.log(data);
-                return true;
-                });
-
-            login.close({ $value: 'submit' });
+            login.close({
+                $value: $http.get(CONST.API + '/api/authen/', {
+                    params: {
+                        UserName: login.usr,
+                        Email: login.usr,
+                        Password: login.pwd
+                    },
+                    'Developer': 'AP',
+                    'Version': '1.0.0',
+                    'Content-Type': 'application/json'
+                }).then(function (resp) {
+                    return resp.data;
+                }).catch(function (resp) {
+                    return resp.statusText;
+                })
+            });
         };//ok
 
         login.cancel = function () {
@@ -34,7 +43,7 @@
     }; //controller
 
 
-    controller.$inject = ['services']
+    controller.$inject = ['$http', 'appConst'];
 
     app.component('loginComponent', {
         templateUrl: 'app/views/login.html',
