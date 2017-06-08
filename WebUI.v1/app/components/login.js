@@ -13,22 +13,26 @@
         };
 
         login.ok = function () {
-            login.close({
-                $value: $http.get(CONST.API + '/api/authen/', {
-                    params: {
-                        UserName: login.usr,
-                        Email: login.usr,
-                        Password: login.pwd
-                    },
-                    'Developer': 'AP',
-                    'Version': '1.0.0',
-                    'Content-Type': 'application/json'
-                }).then(function (resp) {
-                    return resp.data;
+            $http.get(CONST.API + '/api/authen/', {
+                params: {
+                    UserName: login.usr,
+                    Email: login.usr,
+                    Password: login.pwd
+                },
+                'Developer': 'AP',
+                'Version': '1.0.0',
+                'Content-Type': 'application/json'
+            })
+                .then(function (resp) {
+                    login.close({
+                        $value: {
+                            name: login.usr,
+                            xkey: resp.data
+                        }
+                    });
                 }).catch(function (resp) {
                     return resp.statusText;
-                })
-            });
+                });
         };//ok
 
         login.cancel = function () {

@@ -42,34 +42,29 @@ var app = angular.module('appMS4', [
 
     };
 
-    var runState = function ($rootScope, $state, $uibModal, srv) {
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            var reQ = toState.data.reqLogin;
-            
-          
-            if (reQ && $rootScope.Profile === undefined) {
-                $uibModal.open({
-                    animation: true,
-                    component: 'loginComponent',
-                    size:'md'
-                }).result.then(function (resp) {
-                    console.log('submitted ' + resp);
-                    }, function (resp) {
-                        $state.go(fromState.name || 'home');
+    var runState = function ($rootScope, $state, srv) {
+        $rootScope.$on('$stateChangeStart',
+            function (event, toState, toParams, fromState, fromParams) {
+                var reQ = toState.data.reqLogin;
+
+                if (sessionStorage.profile !== undefined)
+                    $rootScope.Profile = JSON.parse(sessionStorage.profile);
+
+
+
+                if (reQ && $rootScope.Profile === undefined) {
+                    srv().then(function (resp) {
+                        $rootScope.Profile = resp;
+                        return $state.go(toState, toParams);
+                    }).catch(function () {
+                        return $state.go('home');
                     });
-
-                //$rootScope.Profile = {
-                //    name: 'archie',
-                //    xkey: 'SKDJF-SDAKFIX-2342-SDFK-DFJSAK'
-                //};
-            }
-            
-
-        });
+                }
+            });
 
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            console.info('$stateChangeSucces....');
+            //console.info('$stateChangeSucces....');
 
         });
 
@@ -77,7 +72,7 @@ var app = angular.module('appMS4', [
 
     app
         .config(['$stateProvider', '$urlRouterProvider', configRoute]) //config
-        .run(['$rootScope', '$state', '$uibModal', 'services', runState])
+        .run(['$rootScope', '$state',  'authService', runState])
         .constant('appConst', {
             API: 'http://localhost:65438/',
         });//app
@@ -91,50 +86,28 @@ var app = angular.module('appMS4', [
 (function () {
     'use strict';
 
-    var services = function ($http, $q, CONST) {
-    
-        var fetch = function (url, u) {
-            var d = $q.defer();
-            $http.get(CONST.API + url, {
-                params: u,
-                'Developer': 'AP',
-                'Version': '1.0.0',
-                'Content-Type': 'application/json'
-            })
-                .then(function (data, status, headers, config) {
-                    d.resolve(data);
-                })
-                .catch(function (data, status, headers, config) {
-                    d.reject('ERROR: ' + data.statusText);
-                });
+    var authServiceAPI = function ($uibModal) {
+        function userAuthenticated(resp) {
+            if (sessionStorage.profile !== undefined)
+                sessionStorage.removeItem('profile');
+            sessionStorage.setItem('profile', JSON.stringify(resp));
 
-            d.promise;
+            return resp;
         };
 
-        var POST = function (u, d) {
-            $http.post(CONST.API + u, d)
-                .then(succResp)
-                .catch(erroResp);
-        };
-        var PUT = function (u, d) {
-            $http.post(CONST.API + u, d)
-                .then(succResp)
-                .catch(erroResp);
+        return function () {
+            return $uibModal.open({
+                animation: true,
+                component: 'loginComponent',
+                size: 'md'
+            }).result.then(userAuthenticated);
         };
 
-        return {
-            fetch: fetch,
-            add: POST,
-            update: PUT
-        };
+    }; //authServiceAPI
 
+    authServiceAPI.$inject = ['$uibModal'];
 
-        
-    }; // services
-
-    services.$inject = ['$http', '$q', 'appConst'];
-
-    app.service('services', services);
+    app.service('authService', authServiceAPI);
 
 })();
 (function () {
@@ -176,22 +149,26 @@ var app = angular.module('appMS4', [
         };
 
         login.ok = function () {
-            login.close({
-                $value: $http.get(CONST.API + '/api/authen/', {
-                    params: {
-                        UserName: login.usr,
-                        Email: login.usr,
-                        Password: login.pwd
-                    },
-                    'Developer': 'AP',
-                    'Version': '1.0.0',
-                    'Content-Type': 'application/json'
-                }).then(function (resp) {
-                    return resp.data;
+            $http.get(CONST.API + '/api/authen/', {
+                params: {
+                    UserName: login.usr,
+                    Email: login.usr,
+                    Password: login.pwd
+                },
+                'Developer': 'AP',
+                'Version': '1.0.0',
+                'Content-Type': 'application/json'
+            })
+                .then(function (resp) {
+                    login.close({
+                        $value: {
+                            name: login.usr,
+                            xkey: resp.data
+                        }
+                    });
                 }).catch(function (resp) {
                     return resp.statusText;
-                })
-            });
+                });
         };//ok
 
         login.cancel = function () {

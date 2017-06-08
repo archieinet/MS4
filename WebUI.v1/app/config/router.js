@@ -34,34 +34,29 @@
 
     };
 
-    var runState = function ($rootScope, $state, $uibModal, srv) {
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            var reQ = toState.data.reqLogin;
-            
-          
-            if (reQ && $rootScope.Profile === undefined) {
-                $uibModal.open({
-                    animation: true,
-                    component: 'loginComponent',
-                    size:'md'
-                }).result.then(function (resp) {
-                    console.log('submitted ' + resp);
-                    }, function (resp) {
-                        $state.go(fromState.name || 'home');
+    var runState = function ($rootScope, $state, srv) {
+        $rootScope.$on('$stateChangeStart',
+            function (event, toState, toParams, fromState, fromParams) {
+                var reQ = toState.data.reqLogin;
+
+                if (sessionStorage.profile !== undefined)
+                    $rootScope.Profile = JSON.parse(sessionStorage.profile);
+
+
+
+                if (reQ && $rootScope.Profile === undefined) {
+                    srv().then(function (resp) {
+                        $rootScope.Profile = resp;
+                        return $state.go(toState, toParams);
+                    }).catch(function () {
+                        return $state.go('home');
                     });
-
-                //$rootScope.Profile = {
-                //    name: 'archie',
-                //    xkey: 'SKDJF-SDAKFIX-2342-SDFK-DFJSAK'
-                //};
-            }
-            
-
-        });
+                }
+            });
 
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            console.info('$stateChangeSucces....');
+            //console.info('$stateChangeSucces....');
 
         });
 
@@ -69,7 +64,7 @@
 
     app
         .config(['$stateProvider', '$urlRouterProvider', configRoute]) //config
-        .run(['$rootScope', '$state', '$uibModal', 'services', runState])
+        .run(['$rootScope', '$state',  'authService', runState])
         .constant('appConst', {
             API: 'http://localhost:65438/',
         });//app
