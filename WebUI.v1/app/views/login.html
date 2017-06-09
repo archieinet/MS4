@@ -6,15 +6,20 @@
         <div class="form-group">
             <label for="usrname">User Name/Email</label>
             <input type="text" class="form-control" id="usrname" 
-                   placeholder="User Name/Email" ng-model="login.usr" />
+                   placeholder="User Name/Email" ng-model="login.usr" required/>
         </div>
         <div class="form-group">
             <label for="usrpwd">Password</label>
             <input type="password" class="form-control" id="usrpwd" 
-                   placeholder="Password" ng-model="login.pwd" />
+                   placeholder="Password" ng-model="login.pwd"  required/>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <p class="text-danger" style="margin-left:10px;font-size:smaller" ng-if="login.fail">
+            Invalid Username/Email or Password 
+        </p>
+        <button type="submit" class="btn btn-default">
+        <span class="glyphicon glyphicon-refresh spin" ng-if="login.inProc"></span> Submit</button>
         <a class="btn btn-warning" ng-click="login.cancel();">Cancel</a>
+        
     </form>
 
 </div> 

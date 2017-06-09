@@ -132,8 +132,10 @@ var app = angular.module('appMS4', [
    
 
 
-    var controller = function ($http, CONST) {
+    var controller = function ($http, CONST, $timeout) {
         var login = this;
+        login.inProc = false;
+        login.fail = false;
         
         login.$onInit = function () {
             login.name = 'archie';
@@ -141,6 +143,8 @@ var app = angular.module('appMS4', [
         };
 
         login.ok = function () {
+            login.inProc = true;
+            $timeout(function () { 
             $http.get(CONST.API + '/api/authen/', {
                 params: {
                     UserName: login.usr,
@@ -159,9 +163,13 @@ var app = angular.module('appMS4', [
                         }
                     });
                 }).catch(function (resp) {
-                    toastr.error(resp.statusText, 'ERROR');
+                    //toastr.error(resp.statusText, 'ERROR');
+                    login.fail = true;
                     return resp.statusText;
-                });
+                }).finally(function () {
+                    login.inProc = false;
+                    });
+            }, 2000);
         };//ok
 
         login.cancel = function () {
@@ -176,7 +184,7 @@ var app = angular.module('appMS4', [
     }; //controller
 
 
-    controller.$inject = ['$http', 'appConst'];
+    controller.$inject = ['$http', 'appConst', '$timeout'];
 
     app.component('loginComponent', {
         templateUrl: 'app/views/login.html',
