@@ -24,25 +24,10 @@ var app = angular.module('appMS4', [
             }) //home
             .state('dashboard', {
                 url: '/dashboard',
-                //component: 'dashboardComponent',
-                template: '<dashboard-component auth="$resolve.xKey"></dashboard-component>',
+                template: '<dashboard-component></dashboard-component>',
                 data: {
                     reqLogin: true
                 },
-                resolve: {
-                    xKey: ['$uibModal', function ($uibModal) {
-                        return $uibModal.open({
-                            animation: true,
-                            component: 'loginComponent',
-                            size: 'md',
-                        }).result.then(function userAuthenticated(resp) {
-                            if (sessionStorage.profile !== undefined)
-                                sessionStorage.removeItem('profile');
-                            sessionStorage.setItem('profile', JSON.stringify(resp));
-                            return resp;
-                        });
-                    }]
-                }
             })
 
             ;//$stateProvider
@@ -58,9 +43,8 @@ var app = angular.module('appMS4', [
                 if (sessionStorage.profile !== undefined)
                     $rootScope.Profile = JSON.parse(sessionStorage.profile);
 
-
-
                 if (reQ && $rootScope.Profile === undefined) {
+                    event.preventDefault();
                     srv().then(function (resp) {
                         $rootScope.Profile = resp;
                         return $state.go(toState, toParams);
