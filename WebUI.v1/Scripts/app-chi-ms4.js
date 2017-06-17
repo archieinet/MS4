@@ -163,7 +163,6 @@ var app = angular.module('appMS4', [
                         }
                     });
                 }).catch(function (resp) {
-                    //toastr.error(resp.statusText, 'ERROR');
                     login.fail = true;
                     return resp.statusText;
                 }).finally(function () {

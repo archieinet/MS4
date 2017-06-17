@@ -35,7 +35,6 @@
                         }
                     });
                 }).catch(function (resp) {
-                    //toastr.error(resp.statusText, 'ERROR');
                     login.fail = true;
                     return resp.statusText;
                 }).finally(function () {
