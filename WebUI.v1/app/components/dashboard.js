@@ -30,6 +30,7 @@
             //----upload here
             $timeout(function () {
                 dash.inProc = false;
+                alert('still in progress...');
             }, 2000);
 
         }; //dash.uploadFiles();

@@ -231,6 +231,7 @@ var app = angular.module('appMS4', [
             //----upload here
             $timeout(function () {
                 dash.inProc = false;
+                alert('still in progress...');
             }, 2000);
 
         }; //dash.uploadFiles();
