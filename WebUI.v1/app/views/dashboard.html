@@ -18,6 +18,7 @@
                             <span class="glyphicon glyphicon-upload"></span> Upload {{files.length>1?'Files':'File'}}
                             <span class="badge" ng-if="files.length"> {{files.length}}</span>
                         </a>
+                        <a class="btn btn-danger" ui-sref="logout">Logout</a>
                     </div>
                     <div class="panel-body" ng-if="files.length">
                         <ol class="list-unstyled">

@@ -29,6 +29,12 @@ var app = angular.module('appMS4', [
                     reqLogin: true
                 },
             })
+            .state('logout', {
+                url: '/home',
+                data: {
+                    reqLogin: false
+                }
+            })
 
             ;//$stateProvider
 
@@ -36,6 +42,8 @@ var app = angular.module('appMS4', [
     };
 
     var runState = function ($rootScope, $state, srv) {
+        var $login = $('#dashboard');
+
         $rootScope.$on('$stateChangeStart',
             function (event, toState, toParams, fromState, fromParams) {
                 var reQ = toState.data.reqLogin;
@@ -56,8 +64,19 @@ var app = angular.module('appMS4', [
 
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            //console.info('$stateChangeSucces....');
+            
 
+            if (toState.name === 'logout')
+                if (!!sessionStorage.getItem('profile')) {
+                    sessionStorage.removeItem('profile');
+                    delete $rootScope.Profile;
+                    $login.show();
+                }
+
+            if ($rootScope.Profile !== undefined)
+                if ($login[0].style.display !== 'none')  
+                    $login.hide(1000);
+                 
         });
 
     }; //runState
