@@ -18,7 +18,7 @@
                 url: '/dashboard',
                 template: '<dashboard-component></dashboard-component>',
                 data: {
-                    reqLogin: false
+                    reqLogin: true
                 },
             })
             .state('logout', {

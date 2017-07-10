@@ -45,7 +45,9 @@
                     return fd;
                 },
                 data: {
-                    model: { name: 'archie', lname: 'pliansaneh' },
+                    model: {
+                        uploadBy: sessionStorage.profile === undefined ? "Anonymous" : JSON.parse(sessionStorage.profile).name
+                    },
                     files: $scope.files
                 }
             }); //post

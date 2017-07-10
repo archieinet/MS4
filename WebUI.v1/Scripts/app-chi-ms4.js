@@ -26,7 +26,7 @@ var app = angular.module('appMS4', [
                 url: '/dashboard',
                 template: '<dashboard-component></dashboard-component>',
                 data: {
-                    reqLogin: false
+                    reqLogin: true
                 },
             })
             .state('logout', {
@@ -264,7 +264,9 @@ var app = angular.module('appMS4', [
                     return fd;
                 },
                 data: {
-                    model: { name: 'archie', lname: 'pliansaneh' },
+                    model: {
+                        uploadBy: sessionStorage.profile === undefined ? "Anonymous" : JSON.parse(sessionStorage.profile).name
+                    },
                     files: $scope.files
                 }
             }); //post
