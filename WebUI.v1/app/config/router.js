@@ -18,7 +18,7 @@
                 url: '/dashboard',
                 template: '<dashboard-component></dashboard-component>',
                 data: {
-                    reqLogin: true
+                    reqLogin: false
                 },
             })
             .state('logout', {
@@ -34,7 +34,7 @@
     };
 
     var runState = function ($rootScope, $state, srv) {
-        var $login = $('#dashboard');
+        var $login = $('#dashboardBtn');
 
         $rootScope.$on('$stateChangeStart',
             function (event, toState, toParams, fromState, fromParams) {

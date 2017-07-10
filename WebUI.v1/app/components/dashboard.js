@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    var dashCtrl = function ($rootScope, $scope, $timeout) {
+    var dashCtrl = function ($rootScope, $scope, $timeout, $http, $q, site) {
         var dash = this;
         $scope.files = [];
 
@@ -26,6 +26,33 @@
                 alert('No files to be upload');
                 return false;
             }
+
+            /*
+            $scope.files.forEach(function (item) {
+                console.info(item.name);
+            });*/
+
+            $http({
+                method: 'POST',
+                url: site.API + 'api/UploadFile',
+                headers: { 'Content-type': undefined },
+                transformRequest: function (data) {
+                    var fd = new FormData();
+                    fd.append("model", angular.toJson(data.model));
+                    for (var i = 0; i < data.files.length; i++) {
+                        fd.append("file" + i, data.files[i]);
+                    }
+                    return fd;
+                },
+                data: {
+                    model: { name: 'archie', lname: 'pliansaneh' },
+                    files: $scope.files
+                }
+            }); //post
+
+             
+
+
 
             //----upload here
             $timeout(function () {
@@ -52,7 +79,7 @@
 
     
 
-    dashCtrl.$inject = ['$rootScope', '$scope', '$timeout'];
+    dashCtrl.$inject = ['$rootScope', '$scope', '$timeout', '$http', '$q', 'appConst'];
 
     app.component('dashboardComponent', {
         templateUrl: 'app/views/dashboard.html',
