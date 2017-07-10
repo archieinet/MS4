@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
         public IHttpActionResult Login(string UserName, string Email, string Password)
         {
 
-            Profile p = new Profile();
+            var p = new Profile();
 
             try
             {
@@ -41,5 +41,7 @@ namespace WebAPI.Controllers
 
             return Ok(p.KeyID);
         }
+
+        
     }
 }

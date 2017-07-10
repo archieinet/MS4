@@ -42,8 +42,7 @@ namespace EfDatabase
         }
 
 
-        //--FORGET PASSWORD
-        //--REGISTER
+       
         
         
         
